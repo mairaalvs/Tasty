@@ -25,8 +25,7 @@ public class RecipeEvaluation {
     @NotNull
     private String recipeId;
 
-    @OneToMany(mappedBy = "recipeEvaluation", cascade ={CascadeType.PERSIST, CascadeType.MERGE})
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "recipeEvaluation", fetch=FetchType.EAGER)
     private List<Evaluation> evaluations = new ArrayList<>();
 
     public void addEvaluation(Evaluation evaluation){

@@ -10,5 +10,4 @@ import java.util.List;
 public interface RecipeRepository extends JpaRepository<RecipeEvaluation, String> {
     List<RecipeEvaluation> findByRecipeId(String recipeId);
 
-//    List<RecipeEvaluation> findByStars(int stars);
 }

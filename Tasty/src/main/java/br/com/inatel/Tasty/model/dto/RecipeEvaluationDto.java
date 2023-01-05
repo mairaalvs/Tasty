@@ -13,7 +13,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RecipeDto {
+public class RecipeEvaluationDto {
 
     private Long id;
 
