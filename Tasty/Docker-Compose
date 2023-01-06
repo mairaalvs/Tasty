@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - 3306:3306
+      - 33060:33060
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=bootdb
+    networks:
+      - inatel
+
+  recipe-evaluation:
+    image: recipe-evaluation
+    container_name: recipe-evaluation
+    ports:
+      - 8081:8081
+    environment:
+      - SERVER_HOST=recipe-evaluation
+      - SERVER_PORT=8081
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - TASTY_HOST=tasty.p.rapidapi.com
+      - TASTY_PORT=recipes
+      - X_RAPIDAPI_KEY=5d7cd0e1d0mshf935b199b661a40p1a34aajsncfc9a3183da5
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - inatel
+    depends_on:
+      - mysql
+
+networks:
+  inatel:
+    driver: bridge
