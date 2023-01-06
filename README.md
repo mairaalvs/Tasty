@@ -18,6 +18,12 @@
 https://github.com/mairaalvs/Tasty.git
 ```
 
+- Register at [rapidapi Tasty API](https://rapidapi.com/apidojo/api/tasty/) to get a key "X-RapidAPI-Key".
+
+
+- Replace in the **application.properties** and **Docker-Compose** files the value of this key.
+
+
 - Run the following commands on Docker:
 ```
 docker network create inatel
@@ -36,6 +42,12 @@ docker container run --name mysql --network=inatel -e MYSQL_ROOT_PASSWORD=root -
 
 With the recipe registered in the external API, we can start registering of an evaluations.
 
+- To read all evaluations from Recipe Evaluation:
+#### GET http://localhost:8081/evaluation
+
+- To read only one evaluation in Recipe Evaluation:
+#### GET http://localhost:8081/evaluation//recipe?id={{recipeId}}
+
 - To register a new evaluation:
 #### POST http://localhost:8081/evaluation
 ```	
@@ -47,8 +59,5 @@ With the recipe registered in the external API, we can start registering of an e
 }
 ```
 
-- To read all evaluations from Recipe Evaluation:
-#### GET http://localhost:8081/evaluation
-
-- To read only one evaluation in Recipe Evaluation:
-#### GET http://localhost:8081/evaluation//recipe?id={{recipeId}}
+- To delete the cache:
+#### DELETE http://localhost:8081/evaluation/cache
