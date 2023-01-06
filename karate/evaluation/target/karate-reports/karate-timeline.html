@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Karate Timeline</title>
+    <style>
+      body, html { font-family: arial, sans-serif; font-size: 11pt; }
+      #visualization { box-sizing: border-box; width: 100%; height: 300px; }
+      .vis-item.failed { background-color: #F2928C; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="visualization"></div>
+    <script>
+var groups = [{"content":"main","id":1}];
+var items = [{"id":1,"group":1,"content":"recipeEvaluation\/recipeEvaluation[1:6]","start":1673013785975,"end":1673013787061,"title":"recipeEvaluation\/recipeEvaluation[1:6] 11:03:05.975-11:03:07.061 Testing the return of the getAll method"},{"id":2,"group":1,"content":"recipeEvaluation\/recipeEvaluation[2:11]","start":1673013787103,"end":1673013787164,"title":"recipeEvaluation\/recipeEvaluation[2:11] 11:03:07.103-11:03:07.164 Testing the return of the getAll method with an invalid structure"},{"id":3,"group":1,"content":"recipeEvaluation\/recipeEvaluation[3:17]","start":1673013787184,"end":1673013787288,"title":"recipeEvaluation\/recipeEvaluation[3:17] 11:03:07.184-11:03:07.288 Testing return method getByRecipeId and checking the Json"},{"id":4,"group":1,"content":"recipeEvaluation\/recipeEvaluation[4:28]","start":1673013787320,"end":1673013787392,"title":"recipeEvaluation\/recipeEvaluation[4:28] 11:03:07.320-11:03:07.392 Testing return method getByRecipeId with RecipeId invalid"},{"id":5,"group":1,"content":"recipeEvaluation\/recipeEvaluation[5:39]","start":1673013787424,"end":1673013788575,"title":"recipeEvaluation\/recipeEvaluation[5:39] 11:03:07.424-11:03:08.575 Testing creating an evaluation of a recipe with valid recipeId"},{"id":6,"group":1,"content":"recipeEvaluation\/recipeEvaluation[6:60]","start":1673013788591,"end":1673013790013,"title":"recipeEvaluation\/recipeEvaluation[6:60] 11:03:08.591-11:03:10.013 Testing creating an evaluation of a recipe with invalid recipeId"},{"id":7,"group":1,"content":"recipeEvaluation\/recipeEvaluation[7:76]","start":1673013790027,"end":1673013790061,"title":"recipeEvaluation\/recipeEvaluation[7:76] 11:03:10.027-11:03:10.061 Testing creating an evaluation of a recipe with invalid date format (1)"},{"id":8,"group":1,"content":"recipeEvaluation\/recipeEvaluation[8:97]","start":1673013790085,"end":1673013790137,"title":"recipeEvaluation\/recipeEvaluation[8:97] 11:03:10.085-11:03:10.137 Testing creating an evaluation of a recipe with invalid date format (2)"},{"id":9,"group":1,"content":"recipeEvaluation\/recipeEvaluation[9:118]","start":1673013790155,"end":1673013790189,"title":"recipeEvaluation\/recipeEvaluation[9:118] 11:03:10.155-11:03:10.189 Testing creating an evaluation of a recipe with invalid date format (3)"},{"id":10,"group":1,"content":"recipeEvaluation\/recipeEvaluation[10:139]","start":1673013790202,"end":1673013790228,"title":"recipeEvaluation\/recipeEvaluation[10:139] 11:03:10.202-11:03:10.228 Testing cache clearing"}];
+</script>
+    <script>
+      var container = document.getElementById('visualization');
+      var timeline = new vis.Timeline(container);
+      timeline.setOptions({groupOrder: 'content'});
+      timeline.setGroups(new vis.DataSet(groups));
+      timeline.setItems(new vis.DataSet(items));
+    </script>
+  </body>
+</html>
