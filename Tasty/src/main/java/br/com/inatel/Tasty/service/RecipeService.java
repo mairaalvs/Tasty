@@ -9,6 +9,7 @@ import br.com.inatel.Tasty.repository.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import springfox.documentation.annotations.Cacheable;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class RecipeService {
         return RecipeMapper.toRecipeEvaluationDtoList(recipeRepository.findByRecipeId(recipeId));
     }
 
+    @Cacheable(value = "recipe")
     public RecipeEvaluationDto saveEvaluation(RecipeEvaluationDto recipeEvaluationDto) {
 
         //transforma o DTO numa entidade de persistencia

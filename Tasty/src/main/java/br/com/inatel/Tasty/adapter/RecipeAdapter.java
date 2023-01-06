@@ -2,8 +2,13 @@ package br.com.inatel.Tasty.adapter;
 
 import br.com.inatel.Tasty.exception.TastyConnectionException;
 
+import br.com.inatel.Tasty.model.rest.Notification;
 import br.com.inatel.Tasty.model.rest.Results;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.web.reactive.function.BodyInserters;
+import springfox.documentation.annotations.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -14,6 +19,7 @@ import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Service
 public class RecipeAdapter {
     @Value("${server.host}")
@@ -48,6 +54,7 @@ public class RecipeAdapter {
     //uso o Flux quando estou consumindo APIs reativas que me retornam a resposta fragmentada e quando isso acontecesse se eu estou usando Mono
     //eu só pego o primeiro bloco
 
+    @Cacheable(value = "recipe")
     public List<Results> getAllRecipe(String recipeEvaluation){
         try{
             Results recipesArr = this.webClient
@@ -66,34 +73,32 @@ public class RecipeAdapter {
             System.out.println(recipesArr);
             return Arrays.asList(recipesArr);
         }catch(WebClientException webClientException){
-            System.out.println(webClientException);
             throw new TastyConnectionException(this.tastyBaseUrl);
         }
     }
 
-//    public List<Recipes> getAllRecipe(String recipeEvaluation){
-//
-//        List<Recipes> recipes = new ArrayList<>();
-//
-//        try{
-//            Mono<Recipes> mono = WebClient.create(tastyBaseUrl)
-//                    .get()
-//                    .uri(uriBuilder -> uriBuilder
-//                            .queryParam("prefix", recipeEvaluation)
-//                            .build())
-//                    .header("X_RapidApi_Key", key)
-//                    .header("tasty.host", tastyHost)
-//                    .accept(MediaType.APPLICATION_JSON)
-//                    .retrieve()
-//                    .bodyToMono(Recipes.class);
-//
-//            mono.subscribe(f -> recipes.add(f));
-//            mono.block();
-//
-//            return recipes;
-//        }catch(WebClientException webClientException){
-//            throw new TastyConnectionException(this.tastyBaseUrl);
-//        }
-//    }
+    @CacheEvict(value = "recipe")
+    public void clearRecipeCache(){
+        log.info("Cache cleared");
+    }
 
+//    public Notification[] registerOnRecipeEvaluation(){
+//    try{
+//        //log.info("Registering at {}", this.tastyBaseUrl);
+//        Notification notification = Notification.builder()
+//                .host(this.serverHost)
+//                .port(this.serverPort)
+//                .build();
+//
+//        return this.webClient.post()
+//                .uri("/notification")
+//                .body(BodyInserters.fromValue(notification))
+//                .retrieve()
+//                .bodyToMono(Notification[].class)
+//                .block();
+//    } catch (WebClientException webClientException){
+//        webClientException.printStackTrace();
+//        throw new TastyConnectionException(this.tastyBaseUrl);
+//    }
+//}
 }
