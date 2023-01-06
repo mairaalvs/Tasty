@@ -38,7 +38,7 @@ public class RecipeController {
         return ResponseEntity.created(null).body(recipeService.saveEvaluation(recipeEvaluationDto));
     }
 
-    @DeleteMapping("/evaluationcache")
+    @DeleteMapping("/cache")
     public ResponseEntity<?> deleteRecipeCache() {
         recipeAdapter.clearRecipeCache();
         return ResponseEntity.noContent().build();
