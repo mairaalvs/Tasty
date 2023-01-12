@@ -21,8 +21,7 @@ services:
     environment:
       - SERVER_HOST=recipe-evaluation
       - SERVER_PORT=8081
-      - MYSQL_HOST=mysql
-      - MYSQL_PORT=3306
+      - MYSQL_CONTAINER=mysql
       - TASTY_HOST=tasty.p.rapidapi.com
       - TASTY_PORT=recipes
       - X_RAPIDAPI_KEY=5d7cd0e1d0mshf935b199b661a40p1a34aajsncfc9a3183da5
