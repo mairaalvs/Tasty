@@ -24,7 +24,7 @@ public class ControllerExceptionHandler {
 
         return Error.builder()
                 .httpStatusCode(HttpStatus.NOT_FOUND)
-                .message(recipeNotFoundException.getMessage())
+                .message("Recipe was not found.")
                 .build();
     }
 
