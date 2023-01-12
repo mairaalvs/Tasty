@@ -28,6 +28,16 @@ public class ControllerExceptionHandler {
                 .build();
     }
 
+    @ExceptionHandler(ArrayIndexOutOfBoundsException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public Error recipeArrayIndexOutOfBoundsException(ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
+
+        return Error.builder()
+                .httpStatusCode(HttpStatus.NOT_FOUND)
+                .message(arrayIndexOutOfBoundsException.getMessage())
+                .build();
+    }
+
     @ExceptionHandler(TastyConnectionException.class)
     @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE)
     public Error tastyConnectionException(TastyConnectionException tastyConnectionException){
