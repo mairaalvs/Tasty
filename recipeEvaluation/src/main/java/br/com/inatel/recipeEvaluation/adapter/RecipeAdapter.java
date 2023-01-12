@@ -68,7 +68,7 @@ public class RecipeAdapter {
                     .bodyToMono(Results.class)
                     .block();
 
-            System.out.println(recipesArr);
+            //System.out.println(recipesArr);
             return Arrays.asList(recipesArr);
         }catch(WebClientException webClientException){
             throw new TastyConnectionException(this.tastyBaseUrl);
@@ -79,24 +79,4 @@ public class RecipeAdapter {
     public void clearRecipeCache(){
         log.info("Cache cleared");
     }
-
-//    public Notification[] registerOnRecipeEvaluation(){
-//    try{
-//        //log.info("Registering at {}", this.tastyBaseUrl);
-//        Notification notification = Notification.builder()
-//                .host(this.serverHost)
-//                .port(this.serverPort)
-//                .build();
-//
-//        return this.webClient.post()
-//                .uri("/notification")
-//                .body(BodyInserters.fromValue(notification))
-//                .retrieve()
-//                .bodyToMono(Notification[].class)
-//                .block();
-//    } catch (WebClientException webClientException){
-//        webClientException.printStackTrace();
-//        throw new TastyConnectionException(this.tastyBaseUrl);
-//    }
-//}
 }
