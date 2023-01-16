@@ -5,12 +5,10 @@ import br.com.inatel.recipeEvaluation.exception.RecipeNotFoundException;
 import br.com.inatel.recipeEvaluation.mapper.RecipeMapper;
 import br.com.inatel.recipeEvaluation.model.dto.RecipeEvaluationDto;
 import br.com.inatel.recipeEvaluation.model.entity.RecipeEvaluation;
-import br.com.inatel.recipeEvaluation.model.rest.Results;
 import br.com.inatel.recipeEvaluation.repository.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springfox.documentation.annotations.Cacheable;
 
 import java.util.List;
 
@@ -37,17 +35,17 @@ public class RecipeService {
 
     public RecipeEvaluationDto saveEvaluation(RecipeEvaluationDto recipeEvaluationDto) {
 
-        //transforma o DTO numa entidade de persistencia
+         //turns the DTO into a persistence entity
         RecipeEvaluation recipeEvaluation = RecipeMapper.toRecipeEvaluation(recipeEvaluationDto);
 
         if(isRecipeValid(recipeEvaluation)){
-            //salvo no banco se for valido e transformo novamente para dto e retorno esse dto para o controller
+            //saved in the database if it is valid and I transform it again to dto and return this dto to the controller
             return RecipeMapper.toRecipeEvaluationDto(recipeRepository.save(recipeEvaluation));
         }
         throw new RecipeNotFoundException(recipeEvaluation);
     }
 
-    private Boolean isRecipeValid(RecipeEvaluation recipeEvaluation){
+    public Boolean isRecipeValid(RecipeEvaluation recipeEvaluation){
 
         return recipeAdapter.getAllRecipe(recipeEvaluation.getRecipeId())
                 .stream()

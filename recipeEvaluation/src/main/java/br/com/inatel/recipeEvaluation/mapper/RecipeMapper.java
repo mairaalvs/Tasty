@@ -10,18 +10,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RecipeMapper {
-    //transformo de lista dto pra lista de entidade
+
+    /**
+     * transform from dto list to entity list
+     */
     public static List<RecipeEvaluation> toRecipeEvaluationList(List<RecipeEvaluationDto> recipeEvaluationDtoList){
         return recipeEvaluationDtoList.stream().map(recipeEvaluationDto -> toRecipeEvaluation(recipeEvaluationDto)).collect(Collectors.toList());
     }
 
-    //transformo de lista de entidade pra lista dto
+    /**
+     * transform from entity list to dto list
+     */
     public static List<RecipeEvaluationDto> toRecipeEvaluationDtoList(List<RecipeEvaluation> recipeEvaluationList){
         return recipeEvaluationList.stream().map(recipeEvaluation -> toRecipeEvaluationDto(recipeEvaluation)).collect(Collectors.toList());
     }
 
-
-    //transformo de dto para entidade
+    /**
+     * transform from dto to entity
+     */
     public static RecipeEvaluation toRecipeEvaluation(RecipeEvaluationDto recipeEvaluationDto){
 
         RecipeEvaluation recipeEvaluation = RecipeEvaluation.builder()
@@ -29,7 +35,7 @@ public class RecipeMapper {
                 .recipeId(recipeEvaluationDto.getRecipeId())
                 .evaluations(new ArrayList<>())
                 .build();
-
+        
         recipeEvaluationDto.getEvaluations().entrySet().stream().forEach(evaluationEntry -> recipeEvaluation.addEvaluation(Evaluation.builder()
                 .date(evaluationEntry.getKey())
                 .stars(evaluationEntry.getValue())
@@ -38,7 +44,9 @@ public class RecipeMapper {
         return recipeEvaluation;
     }
 
-    //transformo de entidade para dto
+    /**
+     * entity to dto transform
+     */
     public static RecipeEvaluationDto toRecipeEvaluationDto(RecipeEvaluation recipeEvaluation){
 
         RecipeEvaluationDto recipeEvaluationDto = RecipeEvaluationDto.builder()
@@ -47,7 +55,9 @@ public class RecipeMapper {
                 .evaluations(new HashMap<>())
                 .build();
 
-        //transformo minha avaliação em chave valor com a data e o numero de estrelas
+        /**
+         * I transform my rating into a key value with the date and the number of stars
+         */
         recipeEvaluationDto.setEvaluations(recipeEvaluation.getEvaluations().stream()
                 .collect(Collectors.toMap(Evaluation::getDate, Evaluation::getStars)));
 

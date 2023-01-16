@@ -24,7 +24,7 @@ public class ControllerExceptionHandler {
 
         return Error.builder()
                 .httpStatusCode(HttpStatus.NOT_FOUND)
-                .message("Recipe was not found.")
+                .message(recipeNotFoundException.getMessage())
                 .build();
     }
 
@@ -34,7 +34,7 @@ public class ControllerExceptionHandler {
 
         return Error.builder()
                 .httpStatusCode(HttpStatus.NOT_FOUND)
-                .message(arrayIndexOutOfBoundsException.getMessage())
+                .message("The recipe you searched for was not found.")
                 .build();
     }
 

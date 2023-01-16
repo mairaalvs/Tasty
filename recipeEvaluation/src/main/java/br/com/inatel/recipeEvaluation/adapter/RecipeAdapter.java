@@ -39,19 +39,20 @@ public class RecipeAdapter {
     @Value("${X_RapidApi_Key}")
     private String key;
 
-
-    //método executado depois de toda injeção de dependencias
+    /**
+     * method executed after every dependency injection
+     */
     @PostConstruct
     public void buildTastyBaseUrl(){
         this.tastyBaseUrl = String.format("https://%s/%s", this.tastyHost, this.tastyPort);
         this.webClient = WebClient.builder().baseUrl(this.tastyBaseUrl).build();
     }
 
-
-    //uso o Mono normalmente para cnosumir APIs não reativas (um bloco de resposta ja completo)
-    //uso o Flux quando estou consumindo APIs reativas que me retornam a resposta fragmentada e quando isso acontecesse se eu estou usando Mono
-    //eu só pego o primeiro bloco
-
+    /**
+     * I use Mono normally to consume non-reactive APIs (an already complete response block)
+     * I use Flux when I'm consuming reactive APIs that return me the chunked response and when that happens if I'm using Mono
+     * I just take the first block
+     */
     @Cacheable(value = "recipe")
     public List<Results> getAllRecipe(String recipeEvaluation){
         try{
@@ -67,8 +68,6 @@ public class RecipeAdapter {
                     .retrieve()
                     .bodyToMono(Results.class)
                     .block();
-
-            //System.out.println(recipesArr);
             return Arrays.asList(recipesArr);
         }catch(WebClientException webClientException){
             throw new TastyConnectionException(this.tastyBaseUrl);
